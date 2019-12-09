@@ -27,11 +27,13 @@ def getLatLong():
     port = 8005
     server.bind((ip, port))
     server.listen(5)
-    print ('menunggu mendapatkan posisi receiver')
+    #print ('menunggu mendapatkan posisi receiver')
+    print ('waiting for position from receiver ...')
     (client_socket, address) = server.accept()
     data = pickle.loads(client_socket.recv(1024))
     print ("========")
-    print ("mendapatkan titik lat long dari receiver port " + str(data['port']))
+    print ("getting lattitude and longitude from receiver ... " + str(data['port']))
+   # print ("mendapatkan titik lat long dari receiver port " + str(data['port']))
     print ("isi data :")
     print (data['lat'])
     print (data['long'])
@@ -40,7 +42,8 @@ def getLatLong():
     server.close()
 
 def sendDataInput():
-    message = raw_input("input pesan > ")
+    message = raw_input("enter message > ")
+#    message = raw_input("input pesan > ")
     p = portDistance[0][0]
 
     pesanDikirim.insert(0,message)
@@ -51,11 +54,11 @@ def sendDataInput():
     # durasi kirim
     pesanDikirim.insert(4,0)
 
-    print ('mengirimkan pesan ke port ' + str(p))
+    print ('Sending message ... ' + str(p))
     hasil = send(pesanDikirim, p)
     while(hasil == 0):
         hasil = send(pesanDikirim, p)
-    print ('pengiriman berhasil ke port ' + str(p))
+    print ('sending success! ' + str(p))
     print pesanDikirim
 
 
@@ -73,7 +76,7 @@ def send(message,port):
             sock.close()
             return 0
         else:
-            print ('pesan berhasil dikirim')
+            print ('message sent!')
             del pesanDikirim[:]
             sock.close()
             return 1
@@ -94,11 +97,11 @@ def getUrutan():
 if __name__ == '__main__':
     print ("sender multicast dtn")
     while 1:
-        print ("1. mendapatkan semua lot lang dari semua receiver")
-        print ("2. mengurutkan urutan pengiriman ke receiver")
-        print ("3. menjalankan pengiriman data")
-        print ("4. keluar")
-        pilihan = raw_input("Pilihan > ")
+        print ("1. Get all lattitude and longitude")
+        print ("2. Rearrange")
+        print ("3. Send data")
+        print ("4. Exit")
+        pilihan = raw_input("Option > ")
         if(pilihan == '1'):
             getLatLong()
         elif(pilihan == '2'):

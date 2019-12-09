@@ -26,7 +26,7 @@ def sendPosition():
         'long' : long_to
     }
     client.send(pickle.dumps(data))
-    print 'sukses mengirim lokasi !'
+    print 'Location successfully sent!'
     return client.close()
 
 def multicast():
@@ -108,7 +108,7 @@ def send(message,port):
             sock.close()
             return 0
         else:
-            print ('pesan berhasil dikirim')
+            print ('message sent')
             del pesanDikirim[:]
             sock.close()
             return 1
@@ -117,10 +117,10 @@ if __name__ == '__main__':
     print "receiver port " + str(port) + ": "
     print "=============="
     while 1:
-        print "1. mengirimkan posisi ke sender"
-        print "2. menerima data dan mengirimkan ke alamat selanjutnya"
-        print "3. keluar"
-        inputan = raw_input('Pilihan > ')
+        print "1. Send position to sender"
+        print "2. Accept data and send to next address"
+        print "3. Exit"
+        inputan = raw_input('Option > ')
         if(inputan == '1'):
             sendPosition()
         elif(inputan == '2'):
@@ -128,4 +128,4 @@ if __name__ == '__main__':
         elif(inputan == '3'):
             exit()
         else :
-            print 'inputan salah'
+            print 'Wrong input'
